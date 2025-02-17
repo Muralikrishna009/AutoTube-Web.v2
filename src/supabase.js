@@ -6,7 +6,7 @@ const supabase = createClient(
       autoRefreshToken: true,
       persistSession: true,
       detectSessionInUrl: true,
-      redirectTo: 'https://auto-tube-web-v2.vercel.app'
+      redirectTo: 'https://auto-tube.vercel.app'
     }
   }
 )
@@ -15,12 +15,12 @@ const supabase = createClient(
 supabase.auth.onAuthStateChange((event, session) => {
   if (event === 'SIGNED_IN') {
     // Check if we're already on the correct domain
-    if (window.location.hostname === 'auto-tube-web-v2.vercel.app') {
+    if (window.location.hostname === 'auto-tube.vercel.app') {
       // Just refresh the page if we're already on the correct domain
       window.location.reload()
     } else {
       // Redirect to the main page after sign in
-      window.location.href = 'https://auto-tube-web-v2.vercel.app'
+      window.location.href = 'https://auto-tube.vercel.app'
     }
   }
 })
