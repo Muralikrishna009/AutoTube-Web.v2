@@ -5,6 +5,7 @@ import EditProfile from './EditProfile';
 import ThemeToggle from './ThemeToggle';
 import Stopwatch from './Stopwatch';
 import Notes from './Notes';
+import HomeScreen from './HomeScreen';
 
 const Home = () => {
   const [user, setUser] = useState(null);
@@ -74,6 +75,8 @@ const Home = () => {
 
   const renderContent = () => {
     switch (activeTab) {
+      case 'home':
+        return <HomeScreen />;
       case 'dashboard':
         return <Stopwatch />;
       case 'notes':
@@ -187,7 +190,7 @@ const Home = () => {
           </>
         );
       default:
-        return null;
+        return <HomeScreen />;
     }
   };
 
@@ -231,6 +234,12 @@ const Home = () => {
           </button>
         </div>
         <nav className="sidebar-nav">
+          <button 
+            className={`nav-item ${activeTab === 'home' ? 'active' : ''}`}
+            onClick={() => setActiveTab('home')}
+          >
+            <FiHome /> Home
+          </button>
           <button 
             className={`nav-item ${activeTab === 'notes' ? 'active' : ''}`}
             onClick={() => setActiveTab('notes')}
