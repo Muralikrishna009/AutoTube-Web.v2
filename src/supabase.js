@@ -1,11 +1,13 @@
+import { createClient } from '@supabase/supabase-js'
+
 const isProduction = window.location.hostname === 'auto-tube.vercel.app';
 const redirectUrl = isProduction 
-  ? process.env.VITE_PRODUCTION_URL || 'https://auto-tube.vercel.app'
-  : process.env.VITE_DEV_URL || 'http://localhost:3000';
+  ? import.meta.env.VITE_PRODUCTION_URL || 'https://auto-tube.vercel.app'
+  : import.meta.env.VITE_DEV_URL || 'http://localhost:3000';
 
 const supabase = createClient(
-  process.env.VITE_SUPABASE_URL || '',
-  process.env.VITE_SUPABASE_ANON_KEY || '',
+  import.meta.env.VITE_SUPABASE_URL || '',
+  import.meta.env.VITE_SUPABASE_ANON_KEY || '',
   {
     auth: {
       autoRefreshToken: true,

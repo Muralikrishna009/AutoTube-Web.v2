@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Login from './components/Login';
 import Home from './components/Home';
@@ -24,22 +24,24 @@ function App() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+      </div>
+    );
   }
 
   return (
-    <Router>
-      <Routes>
-        <Route 
-          path="/" 
-          element={session ? <Navigate to="/home" /> : <Login />} 
-        />
-        <Route 
-          path="/home" 
-          element={session ? <Home /> : <Navigate to="/" />} 
-        />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route 
+        path="/" 
+        element={session ? <Navigate to="/home" /> : <Login />} 
+      />
+      <Route 
+        path="/home" 
+        element={session ? <Home /> : <Navigate to="/" />} 
+      />
+    </Routes>
   );
 }
 

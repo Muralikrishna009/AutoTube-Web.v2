@@ -46,10 +46,6 @@ const Login = () => {
         provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/home`,
-          queryParams: {
-            access_type: 'offline',
-            prompt: 'consent',
-          }
         }
       });
 
@@ -61,75 +57,91 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-image-section">
-        <div className="login-header">
-          <img src="/logo.svg" alt="Logo" className="app-logo" />
-          <a href="#" className="back-to-website">
+    <div className="auth-split-container">
+      <div className="auth-left-section">
+        <div className="auth-left-header">
+          <div className="brand-logo">
+            <img src="/logo.svg" alt="Logo" />
+          </div>
+          <a href="#" className="back-link">
             <HiArrowLeft /> Back to website
           </a>
         </div>
-        <div className="login-image-content">
-          <h1 className="image-title">Capturing Moments, Creating Memories</h1>
+        <div className="auth-left-content">
+          <h1>Capturing Moments,<br />Creating Memories</h1>
         </div>
       </div>
 
-      <div className="login-form-section">
-        <div className="login-box">
-          <h1 className="login-title">Create an account</h1>
-          <p className="login-subtitle">
+      <div className="auth-right-section">
+        <div className="auth-form-container">
+          <h1>Create an account</h1>
+          <p className="auth-subtitle">
             Already have an account? <a href="#">Log in</a>
           </p>
 
-          {error && <div className="error-message">{error}</div>}
+          {error && (
+            <div className="auth-error">
+              {error}
+            </div>
+          )}
 
-          <form onSubmit={handleEmailLogin} className="login-form">
-            <div className="input-group">
-              <MdEmail className="input-icon" />
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                disabled={loading}
-              />
+          <form onSubmit={handleEmailLogin} className="auth-form">
+            <div className="form-group">
+              <div className="input-icon-wrapper">
+                <MdEmail className="input-icon" />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={loading}
+                  required
+                />
+              </div>
             </div>
 
-            <div className="input-group">
-              <RiLockPasswordLine className="input-icon" />
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                disabled={loading}
-              />
+            <div className="form-group">
+              <div className="input-icon-wrapper">
+                <RiLockPasswordLine className="input-icon" />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  disabled={loading}
+                  required
+                />
+              </div>
             </div>
 
-            <button type="submit" className="login-button" disabled={loading}>
+            <button 
+              type="submit" 
+              className="auth-button primary"
+              disabled={loading}
+            >
               {loading ? 'Creating account...' : 'Create account'}
             </button>
           </form>
 
-          <div className="divider">
+          <div className="auth-divider">
             <span>Or register with</span>
           </div>
 
-          <div className="auth-buttons">
+          <div className="social-buttons">
             <button
               onClick={handleGoogleLogin}
-              className="google-button"
+              className="auth-button google"
               disabled={loading}
             >
-              <FcGoogle /> Google
+              <FcGoogle />
+              <span>Google</span>
             </button>
             <button
-              className="apple-button"
+              className="auth-button apple"
               disabled={loading}
             >
-              <FaApple /> Apple
+              <FaApple />
+              <span>Apple</span>
             </button>
           </div>
         </div>
