@@ -14,7 +14,15 @@ const supabase = createClient(
 // Add this to handle auth state changes
 supabase.auth.onAuthStateChange((event, session) => {
   if (event === 'SIGNED_IN') {
-    // Redirect to the main page after sign in
-    window.location.href = 'https://auto-tube-web-v2.vercel.app'
+    // Check if we're already on the correct domain
+    if (window.location.hostname === 'auto-tube-web-v2.vercel.app') {
+      // Just refresh the page if we're already on the correct domain
+      window.location.reload()
+    } else {
+      // Redirect to the main page after sign in
+      window.location.href = 'https://auto-tube-web-v2.vercel.app'
+    }
   }
-}) 
+})
+
+export { supabase } 
