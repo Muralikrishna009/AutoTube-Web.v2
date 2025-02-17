@@ -19,7 +19,7 @@ const Login = () => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -41,7 +41,7 @@ const Login = () => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
@@ -80,9 +80,9 @@ const Login = () => {
           <p className="login-subtitle">
             Already have an account? <a href="#">Log in</a>
           </p>
-          
+
           {error && <div className="error-message">{error}</div>}
-          
+
           <form onSubmit={handleEmailLogin} className="login-form">
             <div className="input-group">
               <MdEmail className="input-icon" />
@@ -95,7 +95,7 @@ const Login = () => {
                 disabled={loading}
               />
             </div>
-            
+
             <div className="input-group">
               <RiLockPasswordLine className="input-icon" />
               <input
@@ -107,25 +107,25 @@ const Login = () => {
                 disabled={loading}
               />
             </div>
-            
+
             <button type="submit" className="login-button" disabled={loading}>
               {loading ? 'Creating account...' : 'Create account'}
             </button>
           </form>
-          
+
           <div className="divider">
             <span>Or register with</span>
           </div>
-          
+
           <div className="auth-buttons">
-            <button 
-              onClick={handleGoogleLogin} 
+            <button
+              onClick={handleGoogleLogin}
               className="google-button"
               disabled={loading}
             >
               <FcGoogle /> Google
             </button>
-            <button 
+            <button
               className="apple-button"
               disabled={loading}
             >

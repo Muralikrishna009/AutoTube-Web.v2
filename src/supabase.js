@@ -1,3 +1,8 @@
+const isProduction = window.location.hostname === 'auto-tube.vercel.app';
+const redirectUrl = isProduction 
+  ? process.env.VITE_PRODUCTION_URL || 'https://auto-tube.vercel.app'
+  : process.env.VITE_DEV_URL || 'http://localhost:3000';
+
 const supabase = createClient(
   process.env.VITE_SUPABASE_URL || '',
   process.env.VITE_SUPABASE_ANON_KEY || '',
@@ -6,7 +11,7 @@ const supabase = createClient(
       autoRefreshToken: true,
       persistSession: true,
       detectSessionInUrl: true,
-      redirectTo: 'https://auto-tube.vercel.app'
+      redirectTo: redirectUrl
     }
   }
 )
@@ -15,12 +20,19 @@ const supabase = createClient(
 supabase.auth.onAuthStateChange((event, session) => {
   if (event === 'SIGNED_IN') {
     // Check if we're already on the correct domain
-    if (window.location.hostname === 'auto-tube.vercel.app') {
-      // Just refresh the page if we're already on the correct domain
-      window.location.reload()
+    if (isProduction) {
+      if (window.location.hostname === 'auto-tube.vercel.app') {
+        window.location.reload()
+      } else {
+        window.location.href = 'https://auto-tube.vercel.app'
+      }
     } else {
-      // Redirect to the main page after sign in
-      window.location.href = 'https://auto-tube.vercel.app'
+      // In development, redirect to localhost
+      if (window.location.hostname === 'localhost') {
+        window.location.reload()
+      } else {
+        window.location.href = 'http://localhost:3000'
+      }
     }
   }
 })
